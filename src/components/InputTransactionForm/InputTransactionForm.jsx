@@ -54,14 +54,12 @@ export default function InputTransactionForm({ type }) {
 
   const dispatch = useDispatch();
   const transactionsOptions = useSelector(selectTransactionsOptions);
-  const transactionsOptionsLength = useSelector(
-    selectTransactionsOptionsLength
-  );
+  const transactionsOptionsLength = transactionsOptions[type].length;
   const isLoadingOpts = useSelector(selectisLoadingOptions);
 
   useEffect(() => {
+    console.log('use effect is working');
     if (transactionsOptionsLength || isLoadingOpts) return;
-
     dispatch(fetchCategoriesOp(type));
     // eslint-disable-next-line
   }, [type]);
@@ -128,6 +126,8 @@ export default function InputTransactionForm({ type }) {
       return { ...oldData, sum: num };
     });
   };
+
+  console.log('RENDER');
 
   return (
     <MainContainer>

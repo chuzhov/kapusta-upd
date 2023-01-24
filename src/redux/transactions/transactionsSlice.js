@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {  fetchCurrentUser, loginUser  } from 'redux/auth/authOperations';
+import { fetchCurrentUser, loginUser } from 'redux/auth/authOperations';
 import {
   fetchUserBalance,
   addTransactionOp,
@@ -21,7 +21,7 @@ const transactionsSlice = createSlice({
     transactionsOptions: {
       expense: [],
       income: [],
-      isLoadinng: false,
+      isLoading: false,
     },
     isLoadinng: false,
     error: null,
@@ -84,8 +84,12 @@ const transactionsSlice = createSlice({
           balance: payload.newBalance,
           transactions: {
             ...state.transactions,
-            expense: state.transactions.expense.filter(operation => operation._id !== payload.id),
-            income: state.transactions.income.filter(operation => operation._id !== payload.id),
+            expense: state.transactions.expense.filter(
+              operation => operation._id !== payload.id
+            ),
+            income: state.transactions.income.filter(
+              operation => operation._id !== payload.id
+            ),
             monthsStats: { ...payload.monthsStats },
           },
         };
@@ -117,21 +121,22 @@ const transactionsSlice = createSlice({
       .addCase(fetchUserBalance.rejected, (state, { payload }) => {
         state.isLoadinng = false;
         state.error = payload;
-      }).addCase(fetchCurrentUser.fulfilled, (state, { payload }) => {
-        state.balance =(payload.balance??0);
+      })
+      .addCase(fetchCurrentUser.fulfilled, (state, { payload }) => {
+        state.balance = payload.balance ?? 0;
       })
       .addCase(fetchCategoriesOp.pending, state => {
-        state.transactionsOptions.isLoadinng = true;
+        state.transactionsOptions.isLoading = true;
       })
       .addCase(
         fetchCategoriesOp.fulfilled,
         (state, { payload: { type, optionsArray } }) => {
-          state.transactionsOptions.isLoadinng = false;
+          state.transactionsOptions.isLoading = false;
           state.transactionsOptions[type] = optionsArray;
         }
       )
       .addCase(fetchCategoriesOp.rejected, (state, { payload }) => {
-        state.transactionsOptions.isLoadinng = false;
+        state.transactionsOptions.isLoading = false;
       }),
 });
 
