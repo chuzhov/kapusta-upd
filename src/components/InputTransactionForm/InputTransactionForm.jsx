@@ -17,7 +17,6 @@ import { notifySettings } from '../../utils/notifySettings';
 import {
   selectisLoadingOptions,
   selectTransactionsOptions,
-  selectTransactionsOptionsLength,
 } from 'redux/transactions/transactionsSelectors';
 import { selectStyles } from './styles/selectStyles';
 import {
@@ -126,8 +125,6 @@ export default function InputTransactionForm({ type }) {
       return { ...oldData, sum: num };
     });
   };
-
-  console.log('RENDER');
 
   return (
     <MainContainer>
