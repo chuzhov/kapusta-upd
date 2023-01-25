@@ -1,15 +1,20 @@
 import { useEffect, lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Routes, useNavigate, useSearchParams, Navigate } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  useNavigate,
+  useSearchParams,
+  Navigate,
+} from 'react-router-dom';
 import { Layout } from './Layout';
 import { fetchCurrentUser, googleAuthUser } from 'redux/auth/authOperations';
 import { getToken } from 'redux/auth/authSelectors';
 
-
-const RegisterPage = lazy(() => import('../pages/Register'));
-const LoginPage = lazy(() => import('../pages/Logins'));
-const WalletPage = lazy(() => import('../pages/Wallet'));
-const StatsPage = lazy(() => import('../pages/Stats'));
+const RegisterPage = lazy(() => import('pages/Register'));
+const LoginPage = lazy(() => import('pages/Logins'));
+const WalletPage = lazy(() => import('pages/Wallet'));
+const StatsPage = lazy(() => import('pages/Stats'));
 
 const PrivateRoute = ({ children, token }) => {
   return token ? children : <Navigate to="/" />;
@@ -18,7 +23,6 @@ const PrivateRoute = ({ children, token }) => {
 const PublicRoute = ({ children, token }) => {
   return !token ? children : <Navigate to="/wallet" />;
 };
-
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -49,30 +53,37 @@ export const App = () => {
       <Route path="/" element={<Layout />}>
         <Route
           index
-          element={<PublicRoute token={token}>
-            <LoginPage/>
-          </PublicRoute>}
+          element={
+            <PublicRoute token={token}>
+              <LoginPage />
+            </PublicRoute>
+          }
         />
         <Route
           path="/register"
-          element={<PublicRoute token={token}>
-            <RegisterPage/>
-          </PublicRoute>}
+          element={
+            <PublicRoute token={token}>
+              <RegisterPage />
+            </PublicRoute>
+          }
         />
         <Route
           path="/wallet"
-          element={<PrivateRoute token={token}>
-            <WalletPage/>
-          </PrivateRoute>}
+          element={
+            <PrivateRoute token={token}>
+              <WalletPage />
+            </PrivateRoute>
+          }
         />
         <Route
           path="/statistics"
-          element={<PrivateRoute token={token}>
-            <StatsPage/>
-          </PrivateRoute>}
+          element={
+            <PrivateRoute token={token}>
+              <StatsPage />
+            </PrivateRoute>
+          }
         />
         {/* <Route path="*" element={<Navigate to="/login" />} /> */}
-
       </Route>
     </Routes>
   );
