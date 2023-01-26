@@ -16,6 +16,12 @@ export const TabLink = styled(Link)`
   border-bottom-right-radius: 0;
   box-shadow: none;
   filter: none;
+
+  &.isActive {
+    background-color: ${p => p.theme.colors.PrimaryOrange};
+    color: white;
+    filter: drop-shadow(1px 3px 5px rgba(255, 107, 8, 0.35));
+  }
 `;
 
 export const Outlet = styled.div`
